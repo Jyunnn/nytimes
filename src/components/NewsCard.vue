@@ -1,11 +1,13 @@
 <template>
     <div class="news-wrap">
         <div class="news-card" v-for="timenews in news" :key="timenews.title">
-            <img v-if="timenews['media'][0]" :src="timenews['media'][0]['media-metadata'][0]['url']" alt="">
-            <p> {{ timenews.title }} 
-                <router-link class="news-card-link" :to="{name:'News', params: { id: timenews.id} }"> ...more </router-link>
-            </p>
-            {{ msgArr }}
+            <p> {{ timenews.published_date }} </p>
+            <div>
+                <img v-if="timenews['media'][0]" :src="timenews['media'][0]['media-metadata'][1]['url']" alt="">
+                <p> {{ timenews.title }} 
+                    <router-link class="news-card-link" :to="{name:'News', params: { id: timenews.id} }"> ...more </router-link>
+                </p>
+            </div>
         </div>
     </div>
 </template>
@@ -40,13 +42,18 @@ console.log();
     }
     .news-wrap {
         display: grid;
+        padding: 30px;
         grid-column-gap: 50px;
-        grid-template-columns: auto auto auto auto auto;
+        grid-template-columns: auto auto auto;
     }
+
     .news-card {
-        display: flex;
-        img {
-            align-self: start;
+        div {
+            display: flex;
+            img {
+                align-self: start;
+                margin-right: 12px;
+            }
         }
     }
 
@@ -54,4 +61,9 @@ console.log();
         text-align: start;
     }
 
+    @media (max-width: 1024px) {
+        .news-wrap {
+            grid-template-columns: auto auto;
+        }
+    }
 </style>
